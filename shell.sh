@@ -583,3 +583,41 @@ func5() {
 }
 func5
 echo $gvar
+
+# 数组参数
+echo 数组参数
+function test1 {
+  echo 参数$@
+  local narr
+  narr="$@"
+  echo $narr
+}
+
+arr=(1 2 3 4 5)
+test1 ${arr[*]}
+
+echo 返回数组
+
+function test1 {
+  local narr
+  narr="$@"
+  echo $narr
+}
+
+arr=(1 2 3 4 5)
+result=$(test1 ${arr[*]})
+echo 结果：$result
+
+# 递归
+function fun {
+  if [ $1 -eq 1 ]
+  then
+    echo 1
+  else 
+    local tmp=$[ $1 - 1 ]
+    local result=$(fun $tmp)
+    echo $[ result * $1 ]
+    fi
+}
+
+fun 5
